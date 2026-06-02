@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>潘蕊 · 作品集</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@200;300;400;500;600;700;900&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(255,255,255,0.04);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --text-primary: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-muted: #6e6e73;
+  --accent: #2997ff;
+  --accent-glow: rgba(41,151,255,0.3);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --max-width: 1200px;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1,h2,h3,h4{font-weight:600;letter-spacing:-0.02em;line-height:1.15}
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 560px;
+}
+
+/* ============================================
+   SCROLL ANIMATIONS
+   ============================================ */
+.anim-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+              transform 0.8s cubic-bezier(0.16,1,0.3,1);
+}
+.anim-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.anim-up-d1 { transition-delay: 0.1s; }
+.anim-up-d2 { transition-delay: 0.2s; }
+.anim-up-d3 { transition-delay: 0.3s; }
+.anim-up-d4 { transition-delay: 0.4s; }
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: center;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+.nav.scrolled {
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+.nav-inner {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+.nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  transition: color 0.3s;
+}
+.nav a:hover { color: var(--text-primary); }
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(41,151,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 70%, rgba(100,100,120,0.04) 0%, transparent 50%),
+    #000;
+  z-index: 0;
+}
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.04"/></svg>');
+  background-size: 256px;
+  opacity: 0.5;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+.hero-name {
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 300;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.8rem;
+}
+.hero-intro {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+.hero-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.2), transparent);
+  margin: 0 auto 2.5rem;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  animation: floatDown 2s ease-in-out infinite;
+}
+@keyframes floatDown {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+  50% { transform: translateX(-50%) translateY(8px); opacity: 0.8; }
+}
+.hero-scroll span {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2), transparent);
+}
+
+/* ============================================
+   SECTIONS (shared)
+   ============================================ */
+.section {
+  padding: 8rem 2rem;
+  position: relative;
+}
+.section-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.section-header {
+  margin-bottom: 5rem;
+}
+
+/* ============================================
+   ABOUT
+   ============================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+}
+.about-text p {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 1.5rem;
+}
+.about-tags {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.about-tag {
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  transition: all 0.3s;
+}
+.about-tag:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+.about-photo {
+  width: 200px;
+  aspect-ratio: 3/4;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  position: relative;
+}
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+.about-photo .photo-placeholder {
+  text-align: center;
+  line-height: 1.8;
+}
+
+/* ============================================
+   PORTFOLIO
+   ============================================ */
+#portfolio {
+  background: var(--bg-secondary);
+}
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+.tab-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.75rem 1.8rem;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.tab-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+.tab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* Portfolio cards grid */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+}
+.portfolio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+}
+.portfolio-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.portfolio-card .card-media {
+  aspect-ratio: 16/10;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-card .card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s ease;
+}
+.portfolio-card:hover .card-media img {
+  transform: scale(1.05);
+}
+.portfolio-card .card-body {
+  padding: 1.5rem;
+}
+.portfolio-card .card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+.portfolio-card .card-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-weight: 300;
+}
+.portfolio-card .card-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-top: 0.8rem;
+}
+
+/* Photography gallery grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+.gallery-item {
+  aspect-ratio: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gallery-item:hover {
+  transform: scale(1.02);
+  border-color: var(--border-hover);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+.gallery-item .gallery-hint {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  z-index: 1;
+}
+
+/* WeChat article card style */
+.article-card {
+  display: flex;
+  gap: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  align-items: center;
+}
+.article-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+.article-card .article-thumb {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-card);
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.6rem;
+  overflow: hidden;
+}
+.article-card .article-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.article-card .article-info h4 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.article-card .article-info p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+.article-link-card {
+  display: flex;
+  gap: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.8rem;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 1rem;
+}
+.article-link-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+.article-link-card .article-thumb {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  overflow: hidden;
+}
+.article-link-card .article-info h4 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  color: var(--accent);
+}
+.article-link-card .article-info p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+.lightbox .lb-close {
+  position: fixed;
+  top: 1.5rem; right: 1.5rem;
+  color: #fff;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2001;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  font-family: inherit;
+  line-height: 1;
+}
+.lightbox .lb-close:hover { opacity: 1; }
+
+/* AI project embed */
+.ai-embed {
+  width: 100%;
+  aspect-ratio: 16/10;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+.ai-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.ai-embed .embed-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.ai-embed .embed-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: all 0.3s;
+}
+.ai-embed .embed-btn:hover {
+  background: #4da8ff;
+  transform: translateY(-1px);
+}
+.ai-embed .embed-btn.secondary {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.ai-embed .embed-btn.secondary:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+/* ============================================
+   ACCORDION (replaces tabs)
+   ============================================ */
+.accordion-item {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: border-color 0.4s ease;
+  background: var(--bg-card);
+}
+.accordion-item:hover {
+  border-color: var(--border-hover);
+}
+.accordion-item[open] {
+  border-color: var(--border-hover);
+}
+.accordion-header {
+  padding: 1.2rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  background: none;
+  transition: background 0.3s;
+  user-select: none;
+}
+.accordion-header::-webkit-details-marker { display: none; }
+.accordion-header::marker { display: none; content: none; }
+.accordion-header:hover {
+  background: var(--bg-card-hover);
+}
+.accordion-arrow {
+  font-size: 1.3rem;
+  font-weight: 200;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+.accordion-item[open] .accordion-arrow {
+  transform: rotate(45deg);
+}
+.accordion-body {
+  padding: 0 1.8rem 1.8rem;
+}
+
+/* ============================================
+   TIMELINE (for video tab)
+   ============================================ */
+.timeline {
+  position: relative;
+  padding-left: 2.4rem;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.4rem; bottom: 0.4rem;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-stage {
+  position: relative;
+  margin-bottom: 3.5rem;
+}
+.timeline-stage:last-child { margin-bottom: 0; }
+.timeline-stage::before {
+  content: '';
+  position: absolute;
+  left: -2.4rem;
+  top: 0.55rem;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  transform: translateX(-4px);
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+.timeline-stage.current::before {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent-glow);
+  width: 12px; height: 12px;
+  transform: translateX(-5px);
+}
+.timeline-stage.current:hover::before {
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+.stage-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin-bottom: 1.2rem;
+}
+.stage-header .stage-name {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.stage-header .stage-period {
+  font-size: 0.68rem;
+  color: var(--accent);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+.timeline-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.9rem;
+}
+
+/* ============================================
+   AI PROCESS (for AI tab)
+   ============================================ */
+.more-link {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: opacity 0.3s;
+  font-weight: 400;
+}
+.more-link:hover { opacity: 0.7; }
+.link-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+.link-card .card-title { color: var(--accent); }
+.netdisk-box {
+  margin-top: 0.8rem;
+  padding: 1rem 1.2rem;
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  font-weight: 300;
+}
+.netdisk-icon { font-size: 1.1rem; flex-shrink: 0; }
+.netdisk-link {
+  background: #0a0a0a;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  font-size: 0.68rem;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  color: var(--text-secondary);
+  word-break: break-all;
+}
+.ai-process {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.process-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 1.5rem;
+  transition: all 0.4s ease;
+}
+.process-step:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+.process-step .step-num {
+  font-size: 2.8rem;
+  font-weight: 200;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  opacity: 0.8;
+}
+.process-step .step-body h4 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.45rem;
+}
+.process-step .step-body p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  font-weight: 300;
+}
+.prompt-block {
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 1.2rem 1.4rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', 'Courier New', monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-top: 0.6rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.prompt-block::-webkit-scrollbar { width: 3px; }
+.prompt-block::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.ai-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.7rem;
+  margin-top: 0.8rem;
+}
+.ai-gallery img {
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+  cursor: pointer;
+}
+.ai-gallery img:hover {
+  transform: scale(1.03);
+  border-color: var(--border-hover);
+}
+.ai-process-note {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding: 1.2rem 2rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  border: 1px dashed var(--border);
+  border-radius: 2px;
+  line-height: 1.7;
+}
+@media (max-width: 768px) {
+  .timeline { padding-left: 1.6rem; }
+  .timeline-stage::before {
+    left: -1.6rem;
+    width: 8px; height: 8px;
+    transform: translateX(-3px);
+  }
+  .timeline-stage.current::before {
+    width: 10px; height: 10px;
+    transform: translateX(-4px);
+  }
+  .timeline-cards { grid-template-columns: 1fr; }
+  .process-step { grid-template-columns: 2.4rem 1fr; gap: 1rem; padding: 1.5rem; }
+  .process-step .step-num { font-size: 2.2rem; }
+  .ai-gallery { grid-template-columns: repeat(2, 1fr); }
+  .prompt-block { font-size: 0.62rem; padding: 0.8rem 1rem; }
+  .netdisk-box { flex-direction: column; align-items: flex-start; gap: 0.4rem; font-size: 0.68rem; }
+  .more-link { font-size: 0.7rem; }
+  .accordion-header { padding: 1rem 1.2rem; font-size: 0.9rem; }
+  .accordion-body { padding: 0 1.2rem 1.2rem; }
+}
+
+/* ============================================
+   SKILLS
+   ============================================ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+.skill-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+.skill-card .skill-icon {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+  opacity: 0.7;
+}
+.skill-card .skill-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+.skill-card .skill-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.skill-bar {
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.skill-bar .fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 1px;
+  transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+  width: 0;
+}
+.skill-card:hover .skill-bar .fill {
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+.learning-section {
+  margin-top: 4rem;
+}
+.learning-section .learning-title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+}
+.learning-tags {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.learning-tag {
+  padding: 0.45rem 1rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  border: 1px dashed var(--border);
+  letter-spacing: 0.04em;
+}
+.learning-tag .dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+@keyframes gentlePulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ============================================
+   CONTACT
+   ============================================ */
+#contact {
+  background: var(--bg-secondary);
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+}
+.contact-item:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+.contact-item .ci-icon {
+  font-size: 1.3rem;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.contact-item .ci-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.contact-item .ci-value {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+.contact-closing {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-align: right;
+}
+.contact-closing strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal .modal-card {
+  background: #111;
+  border: 1px solid var(--border);
+  max-width: 720px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 2.5rem;
+  border-radius: 2px;
+  position: relative;
+}
+.modal .modal-close {
+  position: absolute;
+  top: 0.8rem; right: 1rem;
+  background: none; border: none;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.3s;
+  line-height: 1;
+}
+.modal .modal-close:hover { color: var(--text-primary); }
+.modal .modal-media {
+  width: 100%;
+  background: #000;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  overflow: hidden;
+  border-radius: 2px;
+}
+.modal .modal-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal .modal-media video {
+  width: 100%;
+  display: block;
+  outline: none;
+}
+.modal .modal-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .section { padding: 5rem 1.2rem; }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .about-photo { width: 160px; aspect-ratio: 1; margin: 0 auto; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-closing { font-size: 1.4rem; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .tabs { gap: 0.3rem; }
+  .tab-btn { padding: 0.6rem 1.2rem; font-size: 0.8rem; }
+  .nav { padding: 1rem; }
+  .nav-inner { gap: 1.2rem; }
+  .nav a { font-size: 0.7rem; }
+  .hero-intro { font-size: 0.72rem; max-width: 300px; }
+  .article-link-card { flex-direction: column; text-align: center; }
+  .article-link-card .article-thumb { width: 60px; height: 60px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVIGATION
+     ============================================ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home">首页</a>
+    <a href="#about">关于</a>
+    <a href="#portfolio">作品</a>
+    <a href="#skills">技能</a>
+    <a href="#contact">联系</a>
+  </div>
+</nav>
+
+<!-- ============================================
+     HERO
+     ============================================ -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1 class="hero-name">潘蕊</h1>
+    <p class="hero-tagline">新媒体运营 / 视觉创作 / AI应用</p>
+    <p class="hero-intro">2年工业制造业 · 新媒体实战经验<br>短视频全流程 · AI辅助创意生产</p>
+    <div class="hero-line"></div>
+  </div>
+  <div class="hero-scroll">
+    向下探索
+    <span></span>
+  </div>
+</section>
+
+<!-- ============================================
+     ABOUT
+     ============================================ -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <p class="section-label anim-up">About</p>
+        <h2 class="section-title anim-up anim-up-d1">关于我</h2>
+        <div class="about-text anim-up anim-up-d2">
+          <p>2年工业制造业企业新媒体实战经验，独立操盘从0到1的账号搭建与全链路内容生产，覆盖抖音、视频号、快手、小红书、公众号五大平台。</p>
+          <p>兼具政企宣传与市场化运营双重视角，能独立驾驭策划、拍摄、剪辑、平面设计到多平台分发的完整闭环。深度应用AI辅助内容生产全流程——从创意构思、提示词工程到视觉产出，将AI作为创作效率倍增器。</p>
+        </div>
+        <div class="about-tags anim-up anim-up-d3">
+          <span class="about-tag">新媒体运营</span>
+          <span class="about-tag">视觉创作</span>
+          <span class="about-tag">AI探索</span>
+        </div>
+      </div>
+      <div class="about-photo anim-up anim-up-d2">
+        <img src="Desktop/网页作品集素材/证件照.JPG" alt="潘蕊">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PORTFOLIO
+     ============================================ -->
+<section class="section" id="portfolio">
+  <div class="section-inner">
+    <p class="section-label anim-up">Portfolio</p>
+    <h2 class="section-title anim-up anim-up-d1">作品集</h2>
+    <p class="section-subtitle anim-up anim-up-d1" style="margin-bottom:2rem;">从工业制造到AI创意，用作品讲述能力</p>
+
+    <!-- Accordion 1: Video (open by default) -->
+    <details class="accordion-item anim-up anim-up-d1" open>
+      <summary class="accordion-header">
+        🎬 视频作品
+        <span class="accordion-arrow">+</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="timeline">
+
+        <!-- Stage: 中德塑钢 (Current) -->
+        <div class="timeline-stage current">
+          <div class="stage-header">
+            <span class="stage-name">中德塑钢 · 企划宣传部</span>
+            <span class="stage-period">2024 — 至今</span>
+          </div>
+          <div class="timeline-cards">
+            <div class="portfolio-card" data-modal="video-1" data-video-src="Desktop/网页作品集素材/企业形象宣传片.mp4">
+              <div class="card-media"><img src="Desktop/网页作品集素材/企业形象宣传片.thumb.jpg" alt="企业宣传片"></div>
+              <div class="card-body">
+                <h4 class="card-title">企业形象宣传片</h4>
+                <p class="card-desc">中德塑钢型材品牌宣传视频，独立完成选题策划、现场拍摄到后期剪辑全流程</p>
+                <span class="card-tag">工业制造</span>
+              </div>
+            </div>
+            <div class="portfolio-card" data-modal="video-2" data-video-src="Desktop/网页作品集素材/新能源车间展示.mp4">
+              <div class="card-media"><img src="Desktop/网页作品集素材/新能源车间展示.thumb.jpg" alt="新能源车间"></div>
+              <div class="card-body">
+                <h4 class="card-title">新能源车间展示</h4>
+                <p class="card-desc">现代化新能源车间实拍，展现智能制造业生产线的精密与高效</p>
+                <span class="card-tag">车间实拍</span>
+              </div>
+            </div>
+            <div class="portfolio-card" data-modal="video-3" data-video-src="Desktop/网页作品集素材/个人风采展示.mp4">
+              <div class="card-media"><img src="Desktop/网页作品集素材/个人风采展示.thumb.jpg" alt="个人风采"></div>
+              <div class="card-body">
+                <h4 class="card-title">个人风采展示</h4>
+                <p class="card-desc">个人出镜类视频，展现表达能力和镜头感</p>
+                <span class="card-tag">出镜视频</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: 泽丰农业 (no local files, link only) -->
+        <div class="timeline-stage">
+          <div class="stage-header">
+            <span class="stage-name">泽丰农业 · 新媒体运营</span>
+            <span class="stage-period">2024</span>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);font-weight:300;margin-bottom:0.8rem;">以下作品存放于抖音平台，无法直接嵌入播放，请点击链接跳转查看完整内容</p>
+          <div class="timeline-cards">
+            <a href="https://www.douyin.com/user/MS4wLjABAAAAfOosSUoDJxhXl3urKDZ1QuvYEsM4_5M1WBBqEqMslRPcYZMjFBFrEqfh4XfZvmM6?from_tab_name=main&modal_id=7411410171278134555" class="portfolio-card link-card" target="_blank">
+              <div class="card-media"><span>🔗 抖音</span></div>
+              <div class="card-body">
+                <h4 class="card-title">泽丰农业 · 抖音作品集 ↗</h4>
+                <p class="card-desc">主导抖音及视频号0→1冷启动全流程，含账号搭建、内容策略、农技下乡活动及田间实拍短视频系列。作品存放于抖音平台，请点击链接跳转查看</p>
+                <span class="card-tag">抖音运营</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Stage: 小红书KOL合作 -->
+        <div class="timeline-stage">
+          <div class="stage-header">
+            <span class="stage-name">自由合作 · 小红书KOL视频后期</span>
+            <span class="stage-period">2024 — 2025</span>
+          </div>
+          <div class="timeline-cards">
+            <div class="portfolio-card" data-modal="video-kol" data-video-src="Desktop/网页作品集素材/小红书KOL视频剪辑.MOV">
+              <div class="card-media"><img src="Desktop/网页作品集素材/小红书KOL视频剪辑.thumb.jpg" alt="小红书KOL"></div>
+              <div class="card-body">
+                <h4 class="card-title">奢侈品分享博主 · 视频后期</h4>
+                <p class="card-desc">为小红书奢侈品分享博主提供长期视频剪辑服务，深度理解高端内容叙事节奏与视觉风格</p>
+                <span class="card-tag">KOL合作</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage: 大学期间 -->
+        <div class="timeline-stage">
+          <div class="stage-header">
+            <span class="stage-name">大学期间 · 内江师范学院</span>
+            <span class="stage-period">2020 — 2024</span>
+          </div>
+          <div class="timeline-cards">
+            <div class="portfolio-card" data-modal="video-6" data-video-src="Desktop/网页作品集素材/校园街头采访.mov">
+              <div class="card-media"><img src="Desktop/网页作品集素材/校园街头采访.thumb.jpg" alt="校园采访"></div>
+              <div class="card-body">
+                <h4 class="card-title">校园街头采访</h4>
+                <p class="card-desc">独立策划并执行的校园随机采访视频，锻炼现场应变与采访能力</p>
+                <span class="card-tag">校园创作</span>
+              </div>
+            </div>
+            <div class="portfolio-card" data-modal="video-7" data-video-src="Desktop/网页作品集素材/创新创业大赛-一族刺绣.mov">
+              <div class="card-media"><img src="Desktop/网页作品集素材/创新创业大赛-一族刺绣.thumb.jpg" alt="双创大赛"></div>
+              <div class="card-body">
+                <h4 class="card-title">创新创业大赛 · 彝族刺绣</h4>
+                <p class="card-desc">以彝族刺绣为主题的创新创业项目展示视频，融合文化传承与商业思维</p>
+                <span class="card-tag">双创项目</span>
+              </div>
+            </div>
+          </div>
+          <div class="netdisk-box">
+            <span class="netdisk-icon">📁</span>
+            <span>更多大学期间作品存放于百度网盘：</span>
+            <code class="netdisk-link">链接: https://pan.baidu.com/s/1-5r145HuaddP9Xt_MIdBug?pwd=7txv 提取码: 7txv</code>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </details>
+
+    <!-- Accordion 2: AI Project -->
+    <details class="accordion-item anim-up anim-up-d2">
+      <summary class="accordion-header">
+        🤖 AI项目
+        <span class="accordion-arrow">+</span>
+      </summary>
+      <div class="accordion-body">
+        <div class="ai-process">
+
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h4>创意构思 · 品牌分析与设计理念</h4>
+            <p>以中德系统门窗品牌为对象，提炼"窗"作为人与风景之间的边界这一核心意象。将品牌基因（德系精密工艺）与山西地域文化（平遥古城、壶口瀑布、悬空寺、五台山）深度融合，用AI视觉语言构建"窗见山西"的叙事框架——透过一扇窗，看见山西四季。</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h4>提示词工程 · 从灵感到精确控制</h4>
+            <p>为每个场景撰写中英双语提示词，建立统一的风格锚点（反向词）确保视觉一致性。使用即梦、豆包等AI绘图工具进行多轮迭代——从构图、光影、色调到细节元素逐一调优。以下是四个季节场景的代表性提示词示例：</p>
+            <div class="prompt-block">春 · 窗见平遥 — 现代极简高级客厅，暖灰色微水泥墙面，浅橡木人字拼地板。画面正中是一扇从地板到天花板的超大系统窗，极窄黑色金属窗框。透过窗户看见雨后的平遥古城——湿润的青砖屋檐、高挂的红灯笼、反光的石板路、远处城墙剪影，薄雾缭绕。电影级侧光，建筑摄影构图，国际高端家居品牌美学，暗调，8K。
+
+夏 · 窗见壶口 — 深灰色现代极简空间，全景落地系统窗，窗框极窄近乎消失。窗外是黄河壶口瀑布——黄河水奔腾咆哮，水雾冲天，阳光从乌云裂缝中倾泻而下形成丁达尔光柱。史诗级电影光影，暗调高对比，8K。
+
+秋 · 窗见悬空 — 东方极简禅意空间，深色胡桃木家具。左侧深色木纹系统窗外，晨雾中的悬空寺嵌于赭色崖壁，秋日红叶点缀山间。东方禅意美学，极致安静，暖灰调，8K。
+
+冬 · 窗见五台 — 高级冬日山居空间，深色原木内饰。正中黑色极窄边系统窗外，雪夜中的五台山——大雪覆盖山峦与寺庙，远处佛寺透出暖黄灯火。电影级暗调光影，北欧与东方融合的山居美学，8K。</div>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h4>视觉产出 · 四季窗景 + 文创延展</h4>
+            <p>经过多轮风格迭代和光影测试，最终产出12张AI生成视觉作品：4张四季窗景主题图 + 4款文创产品概念图（冰箱贴/书签/香薰/茶礼盒）+ 4张品牌场景应用图（展厅/灯箱/陈列/数字传播）。</p>
+            <div class="ai-gallery">
+              <img src="窗见山西/images/spring-pingyao.png" alt="春·平遥" loading="lazy">
+              <img src="窗见山西/images/summer-hukou.png" alt="夏·壶口" loading="lazy">
+              <img src="窗见山西/images/autumn-xuankong.png" alt="秋·悬空" loading="lazy">
+              <img src="窗见山西/images/winter-wutai.png" alt="冬·五台" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h4>最终成品 · 交互式演示提案</h4>
+            <p>将全部AI视觉素材整合为12页全屏划页式演示文稿，支持键盘导航、触摸滑动和滚轮操作。以下是完整提案预览：</p>
+            <div class="ai-embed" style="margin-top:0.8rem;">
+              <iframe src="窗见山西/presentation.html" title="窗见山西" loading="lazy"></iframe>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+        <div class="ai-process-note">
+          本项目从创意构思、提示词工程到视觉产出全程由AI辅助完成，展示了人机协作的创意生产方式——这正是我愿意带入团队的核心能力。
+        </div>
+      </div>
+    </details>
+
+    <!-- Accordion 3: Articles -->
+    <details class="accordion-item anim-up anim-up-d3">
+      <summary class="accordion-header">
+        📝 推文作品
+        <span class="accordion-arrow">+</span>
+      </summary>
+      <div class="accordion-body">
+        <a href="https://mp.weixin.qq.com/s/QzOSJcsV00qcMzJgeg7XNQ" target="_blank" class="article-link-card">
+          <div class="article-thumb"><span>📋</span></div>
+          <div class="article-info">
+            <h4>推文作品 ① ↗</h4>
+            <p>中德塑钢微信公众号</p>
+          </div>
+        </a>
+        <a href="https://mp.weixin.qq.com/s/_XIPB4NeZHPTZltC6rMWqA" target="_blank" class="article-link-card">
+          <div class="article-thumb"><span>📋</span></div>
+          <div class="article-info">
+            <h4>推文作品 ② ↗</h4>
+            <p>中德塑钢微信公众号</p>
+          </div>
+        </a>
+        <a href="https://mp.weixin.qq.com/s/0sthJq4LtvL44-pMu4-kAg" target="_blank" class="article-link-card">
+          <div class="article-thumb"><span>📋</span></div>
+          <div class="article-info">
+            <h4>推文作品 ③ ↗</h4>
+            <p>中德塑钢微信公众号</p>
+          </div>
+        </a>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ============================================
+     SKILLS
+     ============================================ -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <p class="section-label anim-up">Skills</p>
+    <h2 class="section-title anim-up anim-up-d1">技能 & 工具</h2>
+    <p class="section-subtitle anim-up anim-up-d1" style="margin-bottom:3.5rem;">从创意到落地的完整执行能力</p>
+
+    <div class="skills-grid">
+      <div class="skill-card anim-up">
+        <div class="skill-icon">📋</div>
+        <h4 class="skill-name">内容策划</h4>
+        <p class="skill-desc">脚本策划、热点追踪、数据分析驱动的内容策略优化</p>
+        <div class="skill-bar"><div class="fill" data-width="90%"></div></div>
+      </div>
+      <div class="skill-card anim-up anim-up-d1">
+        <div class="skill-icon">🎬</div>
+        <h4 class="skill-name">视频制作</h4>
+        <p class="skill-desc">剪映 / Premiere Pro / DaVinci Resolve，从拍摄到剪辑全流程</p>
+        <div class="skill-bar"><div class="fill" data-width="88%"></div></div>
+      </div>
+      <div class="skill-card anim-up anim-up-d2">
+        <div class="skill-icon">🎨</div>
+        <h4 class="skill-name">平面设计</h4>
+        <p class="skill-desc">海报设计、品牌视觉、封面设计、包装设计、公众号图文排版</p>
+        <div class="skill-bar"><div class="fill" data-width="82%"></div></div>
+      </div>
+      <div class="skill-card anim-up anim-up-d3">
+        <div class="skill-icon">🤖</div>
+        <h4 class="skill-name">AI工具应用</h4>
+        <p class="skill-desc">ChatGPT / Claude 辅助创作，提示词工程，AI图片与视频生成</p>
+        <div class="skill-bar"><div class="fill" data-width="85%"></div></div>
+      </div>
+    </div>
+
+    <div class="learning-section anim-up">
+      <p class="learning-title">AI工具栈</p>
+      <div class="learning-tags">
+        <span class="learning-tag"><span class="dot"></span>ChatGPT / Claude</span>
+        <span class="learning-tag"><span class="dot"></span>即梦 / 豆包 · AI绘图</span>
+        <span class="learning-tag"><span class="dot"></span>可灵 AI · 图生视频</span>
+        <span class="learning-tag"><span class="dot"></span>剪映 / PR · 后期剪辑</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT
+     ============================================ -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label anim-up">Contact</p>
+        <h2 class="section-title anim-up anim-up-d1">联系方式</h2>
+        <div class="contact-info anim-up anim-up-d2">
+          <a class="contact-item" href="javascript:;">
+            <span class="ci-icon">💬</span>
+            <div>
+              <p class="ci-label">微信</p>
+              <p class="ci-value">Wosppann</p>
+            </div>
+          </a>
+          <a class="contact-item" href="mailto:2325702478@qq.com">
+            <span class="ci-icon">📧</span>
+            <div>
+              <p class="ci-label">邮箱</p>
+              <p class="ci-value">2325702478@qq.com</p>
+            </div>
+          </a>
+          <a class="contact-item" href="tel:18881208471">
+            <span class="ci-icon">📞</span>
+            <div>
+              <p class="ci-label">电话</p>
+              <p class="ci-value">18881208471</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-closing anim-up anim-up-d3">
+        欢迎一起做<br><strong>有意思的事</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  © 2026 潘蕊 · Built with Claude Code &amp; Care
+</footer>
+
+<!-- ============================================
+     MODAL
+     ============================================ -->
+<div class="modal" id="modal">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-media" id="modalMedia"><span>作品预览</span></div>
+    <h4 id="modalTitle" style="font-size:1.2rem;font-weight:500;margin-bottom:0.5rem;"></h4>
+    <p class="modal-desc" id="modalDesc"></p>
+  </div>
+</div>
+
+<!-- ============================================
+     LIGHTBOX
+     ============================================ -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">&times;</button>
+  <img src="" alt="" id="lbImg">
+</div>
+
+<script>
+/* ============================================
+   SCROLL ANIMATIONS
+   ============================================ */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Trigger skill bars
+      entry.target.querySelectorAll('.skill-bar .fill').forEach(bar => {
+        bar.style.width = bar.dataset.width;
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.anim-up').forEach(el => observer.observe(el));
+
+/* ============================================
+   NAVIGATION SCROLL EFFECT
+   ============================================ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ============================================
+   MODAL (for portfolio cards with video support)
+   ============================================ */
+const modal = document.getElementById('modal');
+const modalClose = document.getElementById('modalClose');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalMedia = document.getElementById('modalMedia');
+
+const modalData = {
+  'video-1': { title: '企业形象宣传片', desc: '中德塑钢型材品牌宣传视频，独立完成从选题策划、现场拍摄到后期剪辑的全流程。以产品展示+企业文化双线叙事，展现现代工业制造业的品牌形象。' },
+  'video-2': { title: '新能源车间展示', desc: '现代化新能源车间实拍视频，展现智能制造业生产线的精密设备、标准化作业流程与高效的生产管理场景，体现工业制造业的现代化面貌。' },
+  'video-3': { title: '个人风采展示', desc: '个人出镜类视频作品，在镜头前展现良好的表达能力和亲和力。内容轻松自然，体现个人风格与沟通能力。' },
+  'video-kol': { title: '奢侈品分享博主 · 视频后期', desc: '为小红书奢侈品分享博主提供长期视频后期剪辑服务，深度理解高端内容的叙事节奏、BGM卡点与视觉风格塑造，胜任高要求的品牌调性把控。' },
+  'video-6': { title: '校园街头采访', desc: '大学期间独立策划并执行的校园随机采访视频。从选题、街采到后期剪辑全流程独立完成，锻炼了现场应变能力和采访沟通技巧。' },
+  'video-7': { title: '创新创业大赛 · 彝族刺绣', desc: '以彝族刺绣非遗文化为主题的创新创业项目展示视频，融合传统文化传承与商业创新思维，获挑战杯省级三等奖。展现文化敏感度与创意叙事能力。' }
+};
+
+document.querySelectorAll('[data-modal]').forEach(card => {
+  card.addEventListener('click', (e) => {
+    // Don't trigger modal if the card is wrapped in an <a> link
+    if (card.closest('a')) return;
+    e.preventDefault();
+    const key = card.dataset.modal;
+    const data = modalData[key];
+    if (!data) return;
+    modalTitle.textContent = data.title;
+    modalDesc.textContent = data.desc;
+    const videoSrc = card.dataset.videoSrc;
+    if (videoSrc) {
+      modalMedia.innerHTML = '<video src="' + videoSrc + '" controls playsinline style="width:100%;display:block;outline:none;"></video>';
+    } else {
+      modalMedia.innerHTML = '<span>作品预览</span>';
+    }
+    modal.classList.add('active');
+  });
+});
+
+modalClose.addEventListener('click', () => {
+  modal.classList.remove('active');
+  modalMedia.innerHTML = '<span>作品预览</span>';
+});
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.classList.remove('active');
+    modalMedia.innerHTML = '<span>作品预览</span>';
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    modal.classList.remove('active');
+    modalMedia.innerHTML = '<span>作品预览</span>';
+  }
+});
+
+/* ============================================
+   LIGHTBOX (for gallery)
+   ============================================ */
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbClose = document.getElementById('lbClose');
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => {
+    // Future: when real images are added
+    // lbImg.src = item.querySelector('img')?.src;
+    // lightbox.classList.add('active');
+  });
+});
+
+lbClose.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) lightbox.classList.remove('active');
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+});
+
+/* ============================================
+   SKILL BARS - animate on view
+   ============================================ */
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target.querySelector('.fill');
+      if (bar) bar.style.width = bar.dataset.width;
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.skill-card').forEach(card => skillObserver.observe(card));
+
+console.log('%c潘蕊 · 作品集 %c— 欢迎 👋',
+  'color:#2997ff;font-size:1.2em;font-weight:600',
+  'color:#a1a1a6');
+</script>
+
+</body>
+</html>
