@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>窗见山西 | Window of Shanxi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+:root {
+  --bg-deep: #060606;
+  --bg-dark: #0c0c0c;
+  --bg-surface: #141414;
+  --bg-elevated: #1a1a1a;
+  --gold: #b8935a;
+  --gold-light: #d4b87a;
+  --gold-pale: #c8a86b;
+  --text-primary: #e6ded4;
+  --text-secondary: #a09888;
+  --text-muted: #6e6658;
+  --border-subtle: #222;
+  --border-gold: rgba(184, 147, 90, 0.3);
+  --slide-padding: clamp(3rem, 6vw, 7rem);
+  --transition-speed: 0.8s;
+}
+
+/* Reset */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{
+  font-family:'Montserrat','PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg-deep);
+  color:var(--text-primary);
+  overflow:hidden;
+  height:100vh;
+  width:100vw;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* ============================================
+   SLIDE CONTAINER
+   ============================================ */
+.slides-container {
+  position:relative;
+  width:100vw;
+  height:100vh;
+}
+.slide {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:scale(1.02);
+  transition:opacity var(--transition-speed) cubic-bezier(0.4,0,0.2,1),
+             transform var(--transition-speed) cubic-bezier(0.4,0,0.2,1);
+  pointer-events:none;
+  padding:var(--slide-padding);
+  overflow:hidden;
+}
+.slide.active {
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+  z-index:1;
+}
+
+/* ============================================
+   AMBIENT BACKGROUNDS (CSS-only)
+   ============================================ */
+.ambient-bg {
+  position:absolute;inset:0;z-index:-1;
+}
+/* Deep noir base for all slides */
+.ambient-noir {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(30,25,20,0.6) 0%, transparent 70%),
+    radial-gradient(ellipse at 20% 80%, rgba(20,18,14,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(25,22,16,0.3) 0%, transparent 50%),
+    var(--bg-deep);
+}
+/* Warm amber (Spring) */
+.ambient-warm {
+  background:
+    radial-gradient(ellipse at 60% 50%, rgba(200,150,80,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 70%, rgba(180,120,50,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 30%, rgba(220,180,100,0.04) 0%, transparent 40%),
+    var(--bg-deep);
+}
+/* Deep teal / mist (Summer) */
+.ambient-cool {
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(60,100,120,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 30%, rgba(40,80,100,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 80%, rgba(30,60,80,0.04) 0%, transparent 40%),
+    var(--bg-deep);
+}
+/* Muted terracotta (Autumn) */
+.ambient-earth {
+  background:
+    radial-gradient(ellipse at 40% 50%, rgba(140,90,50,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 60% 70%, rgba(120,70,40,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 20%, rgba(160,100,50,0.04) 0%, transparent 40%),
+    var(--bg-deep);
+}
+/* Deep indigo (Winter) */
+.ambient-cold {
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(40,50,80,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 30% 60%, rgba(30,40,70,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 40%, rgba(50,60,90,0.03) 0%, transparent 40%),
+    var(--bg-deep);
+}
+
+/* Subtle grain overlay */
+.ambient-grain::after {
+  content:'';
+  position:absolute;inset:0;
+  opacity:0.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size:256px;
+  pointer-events:none;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+.cn-heading {
+  font-family:'Noto Serif SC',serif;
+  font-weight:700;
+  letter-spacing:0.06em;
+  line-height:1.15;
+}
+.cn-body {
+  font-family:'Noto Serif SC',serif;
+  font-weight:300;
+  letter-spacing:0.04em;
+  line-height:1.8;
+}
+.en-heading {
+  font-family:'Cormorant Garamond',serif;
+  font-weight:300;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+}
+.en-label {
+  font-family:'Montserrat',sans-serif;
+  font-weight:300;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  font-size:0.7rem;
+  color:var(--text-muted);
+}
+.gold-text {color:var(--gold)}
+.gold-light-text {color:var(--gold-light)}
+.muted-text {color:var(--text-secondary)}
+.fade-text {color:var(--text-muted)}
+
+/* ============================================
+   DECORATIVE ELEMENTS
+   ============================================ */
+.gold-line {
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:1.5rem 0;
+}
+.gold-line-vertical {
+  width:1px;height:80px;
+  background:linear-gradient(180deg,transparent,var(--gold),transparent);
+}
+.window-frame {
+  border:1px solid var(--border-gold);
+  position:relative;
+}
+.window-frame::before {
+  content:'';
+  position:absolute;inset:3px;
+  border:1px solid rgba(184,147,90,0.12);
+  pointer-events:none;
+}
+.corner-mark {
+  position:absolute;
+  width:12px;height:12px;
+  border-color:var(--gold);
+  border-style:solid;
+  opacity:0.5;
+}
+.corner-tl {top:0;left:0;border-width:1px 0 0 1px}
+.corner-tr {top:0;right:0;border-width:1px 1px 0 0}
+.corner-bl {bottom:0;left:0;border-width:0 0 1px 1px}
+.corner-br {bottom:0;right:0;border-width:0 1px 1px 0}
+
+/* ============================================
+   SLIDE 1 — COVER
+   ============================================ */
+.slide-cover {flex-direction:column;text-align:center}
+.slide-cover .cn-title {
+  font-size:clamp(3.5rem,8vw,7rem);
+  font-weight:900;
+  line-height:1;
+  margin-bottom:0.3em;
+}
+.slide-cover .en-title {
+  font-size:clamp(0.9rem,1.8vw,1.3rem);
+  margin-bottom:2.5rem;
+}
+.slide-cover .subtitle {
+  font-size:clamp(0.85rem,1.4vw,1.1rem);
+  margin-bottom:2rem;
+}
+.slide-cover .tagline {
+  font-size:clamp(1rem,1.6vw,1.3rem);
+  font-weight:300;
+  font-style:italic;
+  color:var(--text-secondary);
+}
+.slide-cover .window-divider {
+  width:clamp(200px,30vw,360px);
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-light),transparent);
+  margin:2.5rem 0;
+}
+
+/* ============================================
+   SLIDE 2 — CONCEPT
+   ============================================ */
+.slide-concept .content-block {
+  max-width:680px;
+  margin:0 auto;
+}
+.slide-concept .cn-heading {
+  font-size:clamp(1.6rem,2.8vw,2.4rem);
+  margin-bottom:2rem;
+}
+.slide-concept .cn-body {
+  font-size:clamp(0.9rem,1.2vw,1.05rem);
+}
+.slide-concept .cn-body p {margin-bottom:1.2em}
+
+/* ============================================
+   SLIDE 3 — DESIGN PRINCIPLES
+   ============================================ */
+.slide-principles {
+  flex-direction:column;
+  gap:clamp(1.5rem,3vw,2.5rem);
+}
+.slide-principles .principles-header {text-align:center}
+.slide-principles .principles-title {
+  font-size:clamp(1.6rem,2.6vw,2.2rem);
+  margin-bottom:0.3rem;
+}
+.slide-principles .principles-subtitle {
+  font-size:0.7rem;
+  margin-bottom:0.5rem;
+}
+.slide-principles .principles-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:clamp(1.5rem,4vw,3rem);
+  max-width:860px;
+  width:100%;
+}
+.slide-principles .principle-block {
+  position:relative;
+  padding-left:1.5rem;
+  border-left:1px solid var(--border-gold);
+}
+.slide-principles .principle-kw {
+  font-family:'Noto Serif SC',serif;
+  font-weight:700;
+  font-size:clamp(1.4rem,2.2vw,1.8rem);
+  line-height:1.2;
+  margin-bottom:0.3rem;
+}
+.slide-principles .principle-en {
+  font-size:0.65rem;
+  margin-bottom:0.8rem;
+}
+.slide-principles .principle-desc {
+  font-size:clamp(0.78rem,0.95vw,0.88rem);
+  line-height:1.7;
+}
+
+/* ============================================
+   SLIDES 4–7 — SEASON SLIDES
+   ============================================ */
+.season-slide {
+  flex-direction:row;
+  gap:clamp(2rem,5vw,6rem);
+  align-items:center;
+}
+.season-slide .visual-zone {
+  flex:1;
+  max-width:50%;
+  position:relative;
+  aspect-ratio:4/3;
+  background:var(--bg-surface);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.season-slide .visual-zone .season-img {
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+}
+.season-slide .text-zone {
+  flex:1;
+  max-width:50%;
+}
+.season-slide .season-label {
+  font-size:0.7rem;
+  margin-bottom:0.8rem;
+}
+.season-slide .season-title {
+  font-size:clamp(1.8rem,3vw,2.8rem);
+  margin-bottom:0.3rem;
+}
+.season-slide .season-subtitle {
+  font-size:clamp(1rem,1.6vw,1.4rem);
+  margin-bottom:1.5rem;
+}
+.season-slide .season-poem {
+  font-size:clamp(0.95rem,1.3vw,1.2rem);
+  font-weight:300;
+  font-style:italic;
+  color:var(--gold-pale);
+  margin-bottom:1.5rem;
+  line-height:1.6;
+}
+.season-slide .season-desc {
+  font-size:clamp(0.82rem,1vw,0.95rem);
+  line-height:1.8;
+}
+
+.season-slide .frame-indicator {
+  position:absolute;inset:8%;
+  border:1px solid rgba(255,255,255,0.06);
+  pointer-events:none;
+}
+.season-slide .frame-indicator::after {
+  content:'';
+  position:absolute;inset:6px;
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* ============================================
+   SLIDE 8 — CULTURAL PRODUCTS
+   ============================================ */
+.slide-products {
+  flex-direction:column;
+  gap:2.5rem;
+}
+.slide-products .products-header {
+  text-align:center;
+}
+.slide-products .products-title {
+  font-size:clamp(1.6rem,2.6vw,2.2rem);
+  margin-bottom:0.3rem;
+}
+.slide-products .products-subtitle {
+  font-size:0.7rem;
+  margin-bottom:1rem;
+}
+.slide-products .products-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.5rem;
+  max-width:1000px;
+  width:100%;
+}
+.slide-products .product-card {
+  background:var(--bg-surface);
+  border:1px solid var(--border-subtle);
+  padding:2rem 1.2rem;
+  text-align:center;
+  transition:border-color 0.4s, transform 0.3s;
+  position:relative;
+  cursor:pointer;
+}
+.slide-products .product-card:hover {
+  border-color:var(--border-gold);
+  transform:translateY(-2px);
+}
+.slide-products .product-card .card-hint {
+  position:absolute;
+  top:0.7rem;right:0.7rem;
+  font-size:0.55rem;
+  color:var(--text-muted);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.slide-products .product-card:hover .card-hint {opacity:0.5}
+.slide-products .product-icon {
+  font-size:2.5rem;
+  margin-bottom:1rem;
+  opacity:0.6;
+}
+.slide-products .product-name {
+  font-size:0.9rem;
+  margin-bottom:0.5rem;
+}
+.slide-products .product-desc {
+  font-size:0.72rem;
+  line-height:1.5;
+}
+
+/* ============================================
+   SLIDE 9 — BRAND APPLICATION
+   ============================================ */
+.slide-brand {
+  flex-direction:column;
+  gap:2.5rem;
+}
+.slide-brand .brand-header {text-align:center}
+.slide-brand .brand-title {
+  font-size:clamp(1.6rem,2.6vw,2.2rem);
+  margin-bottom:0.3rem;
+}
+.slide-brand .brand-subtitle {
+  font-size:0.7rem;
+  margin-bottom:1rem;
+}
+.slide-brand .brand-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(0.8rem,2vw,1.5rem);
+  max-width:1000px;
+  width:100%;
+}
+.slide-brand .brand-card {
+  aspect-ratio:3/4;
+  background:var(--bg-surface);
+  border:1px solid var(--border-subtle);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0.7rem;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:border-color 0.4s, transform 0.3s;
+}
+.slide-brand .brand-card:hover {
+  border-color:var(--border-gold);
+  transform:translateY(-2px);
+}
+.slide-brand .brand-card .card-label {
+  position:absolute;
+  bottom:1rem;
+  font-size:0.65rem;
+}
+.slide-brand .brand-card .card-hint {
+  position:absolute;
+  top:0.7rem;right:0.7rem;
+  font-size:0.55rem;
+  color:var(--text-muted);
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.slide-brand .brand-card:hover .card-hint {opacity:0.5}
+
+/* ============================================
+   SLIDE 10 — AI PROCESS
+   ============================================ */
+.slide-process {
+  flex-direction:column;
+  gap:2.5rem;
+}
+.slide-process .process-header {text-align:center}
+.slide-process .process-title {
+  font-size:clamp(1.6rem,2.6vw,2.2rem);
+  margin-bottom:0.3rem;
+}
+.slide-process .process-subtitle {
+  font-size:0.7rem;
+  margin-bottom:1rem;
+}
+.slide-process .process-timeline {
+  display:flex;
+  gap:0;
+  max-width:900px;
+  width:100%;
+  align-items:flex-start;
+}
+.slide-process .process-step {
+  flex:1;
+  text-align:center;
+  position:relative;
+  padding:0 0.8rem;
+}
+.slide-process .process-step::after {
+  content:'';
+  position:absolute;
+  top:1.5rem;
+  left:60%;
+  width:calc(100% - 1.6rem);
+  height:1px;
+  background:var(--border-subtle);
+}
+.slide-process .process-step:last-child::after {display:none}
+.slide-process .step-number {
+  width:3rem;height:3rem;
+  border:1px solid var(--border-gold);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 1rem;
+  font-size:0.8rem;
+  color:var(--gold);
+}
+.slide-process .step-title {
+  font-size:0.85rem;
+  margin-bottom:0.4rem;
+}
+.slide-process .step-desc {
+  font-size:0.7rem;
+  line-height:1.5;
+}
+
+/* ============================================
+   SLIDE 11 — CONCEPT FILM
+   ============================================ */
+.slide-film {
+  flex-direction:column;
+  text-align:center;
+  gap:2rem;
+}
+.slide-film .film-label {
+  font-size:0.7rem;
+  margin-bottom:0.5rem;
+}
+.slide-film .film-title {
+  font-size:clamp(1.6rem,2.6vw,2.2rem);
+  margin-bottom:1.5rem;
+}
+.slide-film .film-structure {
+  display:flex;
+  gap:2rem;
+  align-items:center;
+  max-width:800px;
+}
+.slide-film .film-phase {
+  flex:1;
+  padding:1.5rem;
+  border-left:1px solid var(--border-gold);
+}
+.slide-film .phase-label {
+  font-size:0.65rem;
+  margin-bottom:0.8rem;
+}
+.slide-film .phase-content {
+  font-size:0.85rem;
+  line-height:1.6;
+}
+.slide-film .film-tagline {
+  margin-top:1.5rem;
+  font-size:clamp(1rem,1.6vw,1.3rem);
+  font-style:italic;
+  color:var(--text-secondary);
+}
+
+/* ============================================
+   SLIDE 12 — END PAGE
+   ============================================ */
+.slide-end {
+  flex-direction:column;
+  text-align:center;
+}
+.slide-end .end-title {
+  font-size:clamp(3rem,6vw,5rem);
+  font-weight:900;
+  line-height:1.1;
+  margin-bottom:0.3em;
+}
+.slide-end .end-subtitle {
+  font-size:clamp(1.2rem,2vw,1.8rem);
+  font-weight:300;
+  margin-bottom:1.5rem;
+}
+.slide-end .end-line {
+  width:80px;height:1px;
+  background:var(--gold);
+  margin:0 auto 2rem;
+}
+.slide-end .end-credit {
+  font-size:0.7rem;
+}
+.slide-end .beam {
+  position:absolute;
+  top:30%;
+  left:50%;
+  transform:translateX(-50%);
+  width:1px;
+  height:40%;
+  background:linear-gradient(180deg,transparent,rgba(200,160,100,0.15),transparent);
+  pointer-events:none;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+  position:fixed;
+  bottom:2rem;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  z-index:100;
+}
+.nav-btn {
+  background:none;
+  border:1px solid rgba(255,255,255,0.12);
+  color:var(--text-secondary);
+  width:40px;height:40px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:1rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.3s;
+  font-family:inherit;
+}
+.nav-btn:hover {
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.nav-dots {
+  display:flex;
+  gap:0.6rem;
+}
+.nav-dot {
+  width:6px;height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.15);
+  cursor:pointer;
+  transition:all 0.4s;
+}
+.nav-dot.active {
+  background:var(--gold);
+  box-shadow:0 0 8px rgba(184,147,90,0.4);
+}
+.nav-dot:hover {background:rgba(255,255,255,0.35)}
+
+/* Page indicator */
+.page-indicator {
+  position:fixed;
+  top:2rem;
+  right:2rem;
+  font-size:0.65rem;
+  font-family:'Montserrat',sans-serif;
+  letter-spacing:0.15em;
+  color:var(--text-muted);
+  z-index:100;
+}
+.page-indicator .current {color:var(--gold)}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+.progress-bar {
+  position:fixed;
+  top:0;left:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  z-index:101;
+  transition:width 0.5s ease;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeUp {
+  from {opacity:0;transform:translateY(20px)}
+  to {opacity:1;transform:translateY(0)}
+}
+@keyframes gentlePulse {
+  0%,100% {opacity:0.5}
+  50% {opacity:0.8}
+}
+@keyframes slowDrift {
+  0% {transform:translate(0,0)}
+  50% {transform:translate(10px,-10px)}
+  100% {transform:translate(0,0)}
+}
+
+.slide.active .anim-fade-up {
+  animation:fadeUp 1s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.slide.active .anim-delay-1 {animation-delay:0.15s}
+.slide.active .anim-delay-2 {animation-delay:0.3s}
+.slide.active .anim-delay-3 {animation-delay:0.45s}
+.slide.active .anim-delay-4 {animation-delay:0.6s}
+.anim-pulse {animation:gentlePulse 4s ease-in-out infinite}
+.anim-drift {animation:slowDrift 20s ease-in-out infinite}
+
+/* ============================================
+   PRODUCT & BRAND DETAIL MODAL
+   ============================================ */
+.detail-overlay {
+  position:fixed;inset:0;
+  background:rgba(2,2,2,0.88);
+  z-index:200;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.5s ease;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+}
+.detail-overlay.active {
+  opacity:1;
+  pointer-events:auto;
+}
+.detail-overlay .detail-card {
+  background:var(--bg-elevated);
+  border:1px solid var(--border-subtle);
+  max-width:720px;
+  width:90%;
+  max-height:85vh;
+  overflow-y:auto;
+  padding:2.5rem;
+  position:relative;
+  transform:translateY(20px);
+  transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.detail-overlay.active .detail-card {transform:translateY(0)}
+.detail-card .detail-close {
+  position:absolute;
+  top:0.8rem;right:1rem;
+  background:none;border:none;
+  color:var(--text-muted);
+  font-size:1.6rem;
+  cursor:pointer;
+  font-family:inherit;
+  line-height:1;
+  transition:color 0.3s;
+  z-index:5;
+}
+.detail-card .detail-close:hover {color:var(--gold)}
+.detail-card .detail-visual {
+  width:100%;
+  background:var(--bg-surface);
+  margin-bottom:1.8rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--border-subtle);
+  overflow:hidden;
+  position:relative;
+}
+.detail-card .detail-visual .detail-img-hint {
+  position:absolute;
+  bottom:0.8rem;
+  font-size:0.6rem;
+  color:var(--text-muted);
+  letter-spacing:0.08em;
+}
+.detail-card .detail-visual img {
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+}
+.detail-card .detail-name {
+  font-size:clamp(1.2rem,2vw,1.7rem);
+  margin-bottom:0.6rem;
+}
+.detail-card .detail-tagline {
+  font-size:0.9rem;
+  font-style:italic;
+  color:var(--gold-pale);
+  margin-bottom:1.2rem;
+  line-height:1.5;
+}
+.detail-card .detail-desc {
+  font-size:0.85rem;
+  line-height:1.8;
+  margin-bottom:1.5rem;
+}
+.detail-card .detail-specs {
+  display:flex;
+  gap:1.5rem;
+  padding-top:1.2rem;
+  border-top:1px solid var(--border-subtle);
+  flex-wrap:wrap;
+}
+.detail-card .spec-item {
+  flex:1;
+  min-width:100px;
+}
+.detail-card .spec-label {
+  font-size:0.6rem;
+  margin-bottom:0.3rem;
+}
+.detail-card .spec-value {
+  font-size:0.78rem;
+}
+.detail-card .brand-scene-desc {
+  font-size:0.85rem;
+  line-height:1.8;
+}
+.detail-card .brand-tags {
+  margin-top:1.2rem;
+  padding-top:1rem;
+  border-top:1px solid var(--border-subtle);
+  display:flex;
+  gap:0.8rem;
+  flex-wrap:wrap;
+}
+.detail-card .brand-tags span {
+  font-size:0.65rem;
+  color:var(--text-muted);
+  padding:0.3rem 0.8rem;
+  border:1px solid var(--border-subtle);
+  border-radius:2px;
+}
+
+/* Video embed placeholder for P11 */
+.slide-film .video-embed {
+  width:100%;
+  max-width:680px;
+  aspect-ratio:16/9;
+  background:var(--bg-surface);
+  border:1px dashed var(--border-subtle);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0.8rem;
+  transition:border-color 0.3s;
+}
+.slide-film .video-embed .play-ring {
+  width:48px;height:48px;
+  border:1.5px solid var(--gold);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0.6;
+  position:relative;
+}
+.slide-film .video-embed .play-ring::after {
+  content:'';
+  display:block;
+  width:0;height:0;
+  border-style:solid;
+  border-width:7px 0 7px 12px;
+  border-color:transparent transparent transparent var(--gold);
+  margin-left:3px;
+}
+.slide-film .video-embed .embed-hint {
+  font-size:0.6rem;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  body {overflow:visible;background:#000}
+  .slide {
+    position:relative;
+    opacity:1 !important;
+    transform:none !important;
+    pointer-events:auto;
+    page-break-after:always;
+    height:100vh;
+    width:100vw;
+  }
+  .nav,.progress-bar,.page-indicator {display:none !important}
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width:768px) {
+  .season-slide {flex-direction:column;text-align:center}
+  .season-slide .visual-zone,
+  .season-slide .text-zone {max-width:100%}
+  .season-slide .visual-zone {aspect-ratio:16/9;width:100%}
+  .slide-products .products-grid {grid-template-columns:repeat(2,1fr)}
+  .slide-brand .brand-grid {grid-template-columns:repeat(2,1fr)}
+  .slide-process .process-timeline {flex-wrap:wrap}
+  .slide-process .process-step {flex:0 0 50%;margin-bottom:2rem}
+  .slide-process .process-step::after {display:none}
+  .slide-film .film-structure {flex-direction:column}
+  .slide-principles .principles-grid {grid-template-columns:1fr;gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar" style="width:8.33%"></div>
+
+<!-- Page Indicator -->
+<div class="page-indicator">
+  <span class="current" id="currentPage">01</span> / 12
+</div>
+
+<!-- ============================================
+     SLIDES
+     ============================================ -->
+<div class="slides-container" id="slidesContainer">
+
+<!-- P1 — COVER -->
+<div class="slide slide-cover active" data-index="0">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="window-divider anim-fade-up" style="opacity:0"></div>
+  <h1 class="cn-heading cn-title anim-fade-up anim-delay-1" style="opacity:0">
+    <span class="gold-text">窗见</span>山西
+  </h1>
+  <p class="en-heading en-title gold-light-text anim-fade-up anim-delay-2" style="opacity:0">
+    Window of Shanxi
+  </p>
+  <p class="cn-body subtitle muted-text anim-fade-up anim-delay-3" style="opacity:0">
+    中德家 AI文创设计提案
+  </p>
+  <p class="cn-body tagline anim-fade-up anim-delay-4" style="opacity:0">
+    一扇窗，容纳山河四季
+  </p>
+</div>
+
+<!-- P2 — CONCEPT -->
+<div class="slide slide-concept" data-index="1">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="content-block">
+    <p class="en-label anim-fade-up" style="opacity:0">Project Philosophy</p>
+    <div class="gold-line anim-fade-up anim-delay-1" style="opacity:0"></div>
+    <h2 class="cn-heading anim-fade-up anim-delay-1" style="opacity:0">
+      窗，不只是建筑结构
+    </h2>
+    <div class="cn-body anim-fade-up anim-delay-2" style="opacity:0;margin-top:2rem;">
+      <p>它是人与风景之间，最温柔的那道边界。</p>
+      <p>《窗见山西》以中德家系统门窗为媒介，借助 AI 视觉语言，重新观看这片土地——平遥的灯火、壶口的山河、悬空寺的晨雾、五台的雪夜，在一扇窗中，与现代生活重新相遇。</p>
+      <p>我们不以"传统"为标签，而以<b>未来的家居美学</b>为语言，让东方文化从被观看的遗产，变为被生活容纳的日常。</p>
+    </div>
+  </div>
+</div>
+
+<!-- P3 — DESIGN PRINCIPLES -->
+<div class="slide slide-principles" data-index="2">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="principles-header">
+    <p class="en-label anim-fade-up" style="opacity:0">Design Principles</p>
+    <h2 class="cn-heading principles-title anim-fade-up anim-delay-1" style="opacity:0">
+      设计<span class="gold-text">理念</span>
+    </h2>
+    <div class="gold-line anim-fade-up anim-delay-1" style="opacity:0;margin:1rem auto"></div>
+  </div>
+  <div class="principles-grid">
+    <div class="principle-block anim-fade-up anim-delay-1" style="opacity:0">
+      <h3 class="principle-kw"><span class="gold-text">东方</span> × 建筑</h3>
+      <p class="en-label principle-en">Eastern Architecture</p>
+      <p class="cn-body principle-desc muted-text">以窗为框，重构东方建筑美学的当代语法</p>
+    </div>
+    <div class="principle-block anim-fade-up anim-delay-2" style="opacity:0">
+      <h3 class="principle-kw"><span class="gold-text">山河</span> × 光影</h3>
+      <p class="en-label principle-en">Landscape &amp; Light</p>
+      <p class="cn-body principle-desc muted-text">让山西的山河，成为系统窗内流动的电影</p>
+    </div>
+    <div class="principle-block anim-fade-up anim-delay-3" style="opacity:0">
+      <h3 class="principle-kw"><span class="gold-text">留白</span> × 四季</h3>
+      <p class="en-label principle-en">Space &amp; Seasons</p>
+      <p class="cn-body principle-desc muted-text">留白处，四季自会填满——不是空无，是呼吸</p>
+    </div>
+    <div class="principle-block anim-fade-up anim-delay-4" style="opacity:0">
+      <h3 class="principle-kw"><span class="gold-text">未来</span> × 生活</h3>
+      <p class="en-label principle-en">Future Living</p>
+      <p class="cn-body principle-desc muted-text">让文化遗产从被观看的过去，变为被容纳的日常</p>
+    </div>
+  </div>
+</div>
+
+<!-- P4 — SPRING · PINGYAO -->
+<div class="slide season-slide" data-index="3">
+  <div class="ambient-bg ambient-warm ambient-grain"></div>
+  <div class="visual-zone window-frame anim-fade-up" style="opacity:0">
+    <img src="images/spring-pingyao.png" alt="春·平遥" class="season-img">
+    <div class="frame-indicator"></div>
+    <div class="corner-mark corner-tl"></div>
+    <div class="corner-mark corner-tr"></div>
+    <div class="corner-mark corner-bl"></div>
+    <div class="corner-mark corner-br"></div>
+  </div>
+  <div class="text-zone">
+    <p class="en-label anim-fade-up" style="opacity:0">Spring</p>
+    <h2 class="cn-heading season-title anim-fade-up anim-delay-1" style="opacity:0">
+      春<span class="muted-text">·</span><span class="gold-text">窗见</span>平遥
+    </h2>
+    <p class="en-heading season-subtitle muted-text anim-fade-up anim-delay-1" style="opacity:0">
+      Spring at Pingyao
+    </p>
+    <p class="season-poem anim-fade-up anim-delay-2" style="opacity:0">
+      雨落古城，灯映青砖<br>
+      千年晋商，一窗之隔
+    </p>
+    <p class="cn-body season-desc anim-fade-up anim-delay-3" style="opacity:0">
+      雨后的平遥古城，透过超大现代系统窗被重新观看。青砖屋檐、红灯笼、石板路与暖色光影，在一扇窗中连接过去与当下。窗外是千年晋商，窗内是当代生活。
+    </p>
+  </div>
+</div>
+
+<!-- P5 — SUMMER · HUKOU -->
+<div class="slide season-slide" data-index="4">
+  <div class="ambient-bg ambient-cool ambient-grain"></div>
+  <div class="visual-zone window-frame anim-fade-up" style="opacity:0">
+    <img src="images/summer-hukou.png" alt="夏·壶口" class="season-img">
+    <div class="frame-indicator"></div>
+    <div class="corner-mark corner-tl"></div>
+    <div class="corner-mark corner-tr"></div>
+    <div class="corner-mark corner-bl"></div>
+    <div class="corner-mark corner-br"></div>
+  </div>
+  <div class="text-zone">
+    <p class="en-label anim-fade-up" style="opacity:0">Summer</p>
+    <h2 class="cn-heading season-title anim-fade-up anim-delay-1" style="opacity:0">
+      夏<span class="muted-text">·</span><span class="gold-text">窗见</span>壶口
+    </h2>
+    <p class="en-heading season-subtitle muted-text anim-fade-up anim-delay-1" style="opacity:0">
+      Summer at Hukou
+    </p>
+    <p class="season-poem anim-fade-up anim-delay-2" style="opacity:0">
+      黄河入窗，山河入梦<br>
+      把山河，装进生活
+    </p>
+    <p class="cn-body season-desc anim-fade-up anim-delay-3" style="opacity:0">
+      黄河奔腾而下，水雾弥漫。全景落地系统窗不再只是观看风景的媒介，而是把山河引入生活的入口。乌云裂光，岩石与水雾交织，深灰现代空间中，史诗级的光影正在发生。
+    </p>
+  </div>
+</div>
+
+<!-- P6 — AUTUMN · XUANKONG -->
+<div class="slide season-slide" data-index="5">
+  <div class="ambient-bg ambient-earth ambient-grain"></div>
+  <div class="visual-zone window-frame anim-fade-up" style="opacity:0">
+    <img src="images/autumn-xuankong.png" alt="秋·悬空" class="season-img">
+    <div class="frame-indicator"></div>
+    <div class="corner-mark corner-tl"></div>
+    <div class="corner-mark corner-tr"></div>
+    <div class="corner-mark corner-bl"></div>
+    <div class="corner-mark corner-br"></div>
+  </div>
+  <div class="text-zone">
+    <p class="en-label anim-fade-up" style="opacity:0">Autumn</p>
+    <h2 class="cn-heading season-title anim-fade-up anim-delay-1" style="opacity:0">
+      秋<span class="muted-text">·</span><span class="gold-text">窗见</span>悬空
+    </h2>
+    <p class="en-heading season-subtitle muted-text anim-fade-up anim-delay-1" style="opacity:0">
+      Autumn at Xuankong
+    </p>
+    <p class="season-poem anim-fade-up anim-delay-2" style="opacity:0">
+      晨雾悬寺，秋色入檐<br>
+      风景之外，还有时间
+    </p>
+    <p class="cn-body season-desc anim-fade-up anim-delay-3" style="opacity:0">
+      晨雾中的悬空寺，透过深色木纹系统窗安静呈现。原木家具、茶席、暖灯与亚麻织物构成东方极简空间。留白、山体与微光，让空间重新安静下来。
+    </p>
+  </div>
+</div>
+
+<!-- P7 — WINTER · WUTAI -->
+<div class="slide season-slide" data-index="6">
+  <div class="ambient-bg ambient-cold ambient-grain"></div>
+  <div class="visual-zone window-frame anim-fade-up" style="opacity:0">
+    <img src="images/winter-wutai.png" alt="冬·五台" class="season-img">
+    <div class="frame-indicator"></div>
+    <div class="corner-mark corner-tl"></div>
+    <div class="corner-mark corner-tr"></div>
+    <div class="corner-mark corner-bl"></div>
+    <div class="corner-mark corner-br"></div>
+  </div>
+  <div class="text-zone">
+    <p class="en-label anim-fade-up" style="opacity:0">Winter</p>
+    <h2 class="cn-heading season-title anim-fade-up anim-delay-1" style="opacity:0">
+      冬<span class="muted-text">·</span><span class="gold-text">窗见</span>五台
+    </h2>
+    <p class="en-heading season-subtitle muted-text anim-fade-up anim-delay-1" style="opacity:0">
+      Winter at Wutai
+    </p>
+    <p class="season-poem anim-fade-up anim-delay-2" style="opacity:0">
+      雪落五台，灯暖人间<br>
+      窗隔风雪，不隔山河
+    </p>
+    <p class="cn-body season-desc anim-fade-up anim-delay-3" style="opacity:0">
+      雪夜中的五台山，透过黑色极窄边系统窗静静呈现。热茶、毛毯、暖灯与远处山寺的微光，构成冬日山居的全部温度。玻璃上的雾气，是寒冷与温暖交汇的痕迹。
+    </p>
+  </div>
+</div>
+
+<!-- P8 — CULTURAL PRODUCTS -->
+<div class="slide slide-products" data-index="7">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="products-header">
+    <p class="en-label anim-fade-up" style="opacity:0">Cultural Collection</p>
+    <h2 class="cn-heading products-title anim-fade-up anim-delay-1" style="opacity:0">
+      <span class="gold-text">窗见山西</span> · 文创延展
+    </h2>
+    <p class="en-heading products-subtitle anim-fade-up anim-delay-1" style="opacity:0">
+      Window of Shanxi Collection
+    </p>
+    <div class="gold-line anim-fade-up anim-delay-2" style="opacity:0;margin:1rem auto"></div>
+  </div>
+  <div class="products-grid">
+    <div class="product-card anim-fade-up" style="opacity:0" data-product="0">
+      <span class="card-hint en-label">+</span>
+      <div class="product-icon">🪟</div>
+      <h4 class="cn-heading product-name">窗景冰箱贴</h4>
+      <p class="cn-body product-desc muted-text">每一枚，都是一扇望向山西的小窗</p>
+    </div>
+    <div class="product-card anim-fade-up anim-delay-1" style="opacity:0" data-product="1">
+      <span class="card-hint en-label">+</span>
+      <div class="product-icon">📖</div>
+      <h4 class="cn-heading product-name">窗景书签</h4>
+      <p class="cn-body product-desc muted-text">阅读时，如同推开一扇窗</p>
+    </div>
+    <div class="product-card anim-fade-up anim-delay-2" style="opacity:0" data-product="2">
+      <span class="card-hint en-label">+</span>
+      <div class="product-icon">🕯️</div>
+      <h4 class="cn-heading product-name">山西风物香薰</h4>
+      <p class="cn-body product-desc muted-text">把山西的风，带回家</p>
+    </div>
+    <div class="product-card anim-fade-up anim-delay-3" style="opacity:0" data-product="3">
+      <span class="card-hint en-label">+</span>
+      <div class="product-icon">🍵</div>
+      <h4 class="cn-heading product-name">推窗式茶礼盒</h4>
+      <p class="cn-body product-desc muted-text">推开即是风景的中式茶礼</p>
+    </div>
+  </div>
+</div>
+
+<!-- P9 — BRAND APPLICATION -->
+<div class="slide slide-brand" data-index="8">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="brand-header">
+    <p class="en-label anim-fade-up" style="opacity:0">Brand Application</p>
+    <h2 class="cn-heading brand-title anim-fade-up anim-delay-1" style="opacity:0">
+      场景<span class="gold-text">应用</span>
+    </h2>
+    <div class="gold-line anim-fade-up anim-delay-1" style="opacity:0;margin:1rem auto"></div>
+  </div>
+  <div class="brand-grid">
+    <div class="brand-card anim-fade-up" style="opacity:0;background:linear-gradient(0deg,rgba(6,6,6,0.75) 0%,rgba(6,6,6,0.15) 45%) center/cover,url(images/brand-exhibition.png) center/cover" data-brand="0">
+      <span class="card-hint en-label">+</span>
+      <span class="card-label en-label">Exhibition Poster</span>
+    </div>
+    <div class="brand-card anim-fade-up anim-delay-1" style="opacity:0;background:linear-gradient(0deg,rgba(6,6,6,0.75) 0%,rgba(6,6,6,0.15) 45%) center/cover,url(images/brand-lightbox.png) center/cover" data-brand="1">
+      <span class="card-hint en-label">+</span>
+      <span class="card-label en-label">Mall Lightbox</span>
+    </div>
+    <div class="brand-card anim-fade-up anim-delay-2" style="opacity:0;background:linear-gradient(0deg,rgba(6,6,6,0.75) 0%,rgba(6,6,6,0.15) 45%) center/cover,url(images/brand-display.png) center/cover" data-brand="2">
+      <span class="card-hint en-label">+</span>
+      <span class="card-label en-label">Cultural Display</span>
+    </div>
+    <div class="brand-card anim-fade-up anim-delay-3" style="opacity:0;background:linear-gradient(0deg,rgba(6,6,6,0.75) 0%,rgba(6,6,6,0.15) 45%) center/cover,url(images/brand-digital.png) center/cover" data-brand="3">
+      <span class="card-hint en-label">+</span>
+      <span class="card-label en-label">Digital Campaign</span>
+    </div>
+  </div>
+</div>
+
+<!-- P10 — AI PROCESS -->
+<div class="slide slide-process" data-index="9">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="process-header">
+    <p class="en-label anim-fade-up" style="opacity:0">AI Creative Process</p>
+    <h2 class="cn-heading process-title anim-fade-up anim-delay-1" style="opacity:0">
+      AI <span class="gold-text">创意</span>历程
+    </h2>
+    <div class="gold-line anim-fade-up anim-delay-1" style="opacity:0;margin:1rem auto"></div>
+  </div>
+  <div class="process-timeline">
+    <div class="process-step anim-fade-up" style="opacity:0">
+      <div class="step-number en-heading">01</div>
+      <h4 class="cn-heading step-title">Prompt 工程</h4>
+      <p class="cn-body step-desc muted-text">中英双语提示词打磨，融入建筑摄影与电影级光影参数</p>
+    </div>
+    <div class="process-step anim-fade-up anim-delay-1" style="opacity:0">
+      <div class="step-number en-heading">02</div>
+      <h4 class="cn-heading step-title">风格迭代</h4>
+      <p class="cn-body step-desc muted-text">多轮生成，逐步收敛至"国际家居品牌视觉"核心风格</p>
+    </div>
+    <div class="process-step anim-fade-up anim-delay-2" style="opacity:0">
+      <div class="step-number en-heading">03</div>
+      <h4 class="cn-heading step-title">光影测试</h4>
+      <p class="cn-body step-desc muted-text">不同时段、天气、室内外光照条件下的视觉一致性测试</p>
+    </div>
+    <div class="process-step anim-fade-up anim-delay-3" style="opacity:0">
+      <div class="step-number en-heading">04</div>
+      <h4 class="cn-heading step-title">动态影像</h4>
+      <p class="cn-body step-desc muted-text">AI 视频生成，四季窗景连续切换的概念短片</p>
+    </div>
+  </div>
+</div>
+
+<!-- P11 — CONCEPT FILM -->
+<div class="slide slide-film" data-index="10">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <p class="en-label film-label anim-fade-up" style="opacity:0">AI Concept Film</p>
+  <h2 class="cn-heading film-title anim-fade-up anim-delay-1" style="opacity:0">
+    AI <span class="gold-text">概念</span>影像
+  </h2>
+  <div class="film-structure">
+    <div class="film-phase anim-fade-up anim-delay-2" style="opacity:0">
+      <p class="en-label phase-label">Opening</p>
+      <p class="cn-body phase-content">一道光，勾勒出窗框的轮廓</p>
+    </div>
+    <div class="film-phase anim-fade-up anim-delay-3" style="opacity:0">
+      <p class="en-label phase-label">Sequence</p>
+      <p class="cn-body phase-content">四季窗景流转——<br>平遥 → 壶口 → 悬空 → 五台</p>
+    </div>
+    <div class="film-phase anim-fade-up anim-delay-4" style="opacity:0">
+      <p class="en-label phase-label">Finale</p>
+      <p class="cn-body phase-content">所有风景，汇聚成一扇窗</p>
+    </div>
+  </div>
+  <div class="video-embed anim-fade-up anim-delay-3" style="opacity:0">
+    <div class="play-ring"></div>
+    <span class="embed-hint en-label">AI Generated Concept Film · 16:9</span>
+  </div>
+  <p class="film-tagline anim-fade-up anim-delay-4" style="opacity:0">
+    每一扇窗，都在看见不同的山西
+  </p>
+</div>
+
+<!-- P12 — END PAGE -->
+<div class="slide slide-end" data-index="11">
+  <div class="ambient-bg ambient-noir ambient-grain"></div>
+  <div class="beam anim-pulse"></div>
+  <h2 class="cn-heading end-title anim-fade-up" style="opacity:0">
+    <span class="gold-text">窗见</span>山西
+  </h2>
+  <p class="cn-body end-subtitle muted-text anim-fade-up anim-delay-1" style="opacity:0">
+    看见生活
+  </p>
+  <div class="end-line anim-fade-up anim-delay-2" style="opacity:0"></div>
+  <p class="en-label end-credit anim-fade-up anim-delay-3" style="opacity:0">
+    Window of Shanxi · 中德家 AI文创设计提案
+  </p>
+</div>
+
+</div><!-- /slides-container -->
+
+<!-- Product & Brand Detail Overlay -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-card" id="detailCard"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav">
+  <button class="nav-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
+  <div class="nav-dots" id="navDots"></div>
+  <button class="nav-btn" id="nextBtn" aria-label="Next">&#8594;</button>
+</nav>
+
+<script>
+/* ============================================
+   PRESENTATION ENGINE
+   ============================================ */
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+
+  const progressBar = document.getElementById('progressBar');
+  const currentPage = document.getElementById('currentPage');
+  const navDots = document.getElementById('navDots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Build dots
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('span');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    navDots.appendChild(dot);
+  }
+
+  function goTo(index) {
+    if (index < 0 || index >= totalSlides || index === currentIndex) return;
+
+    slides[currentIndex].classList.remove('active');
+    slides[index].classList.add('active');
+
+    // Update dots
+    navDots.children[currentIndex].classList.remove('active');
+    navDots.children[index].classList.add('active');
+
+    currentIndex = index;
+
+    // Update UI
+    const pct = ((index + 1) / totalSlides) * 100;
+    progressBar.style.width = pct + '%';
+    currentPage.textContent = String(index + 1).padStart(2, '0');
+  }
+
+  function next() { goTo(currentIndex + 1) }
+  function prev() { goTo(currentIndex - 1) }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (detailOpen) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      prev();
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      goTo(totalSlides - 1);
+    }
+  });
+
+  // Touch swipe
+  let touchStartX = 0, touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      dx > 0 ? prev() : next();
+    }
+  });
+
+  // Mouse wheel (with debounce)
+  let wheelTimeout;
+  document.addEventListener('wheel', (e) => {
+    if (wheelTimeout || detailOpen) return;
+    wheelTimeout = setTimeout(() => { wheelTimeout = null }, 800);
+    e.deltaY > 0 ? next() : prev();
+  }, { passive: true });
+
+  /* ============================================
+     PRODUCT & BRAND DETAIL SYSTEM
+     ============================================ */
+  const productData = [
+    {
+      name: '窗景冰箱贴',
+      tagline: '每一枚，都是一扇望向山西的小窗',
+      img: 'images/product-magnet.png',
+      desc: '四款一套的窗景冰箱贴，分别对应平遥灯火、壶口水雾、悬空晨雾、五台雪夜。锌合金压铸成型，表面浮雕工艺呈现极窄窗框纹理，珐琅填色还原四季光影。背面强力磁吸，可吸附于冰箱、铁艺白板或任意金属表面。附赠深灰绒布收纳袋，自用或赠礼皆宜。',
+      specs: [
+        { label: '材质', value: '锌合金 + 珐琅填色' },
+        { label: '尺寸', value: '45 × 35 × 3mm' },
+        { label: '套装', value: '四枚装 + 绒布袋' }
+      ]
+    },
+    {
+      name: '窗景书签',
+      tagline: '阅读时，如同推开一扇窗',
+      img: 'images/product-bookmark.png',
+      desc: '黄铜蚀刻工艺，镂空窗框造型。夹入书页时，窗框中透出的文字仿佛窗外的风景。四款设计对应四季窗景，每枚附赠同色系流苏坠饰。阅读一本书，如同推开一扇望向山西的窗，在文字与风景之间自由穿行。',
+      specs: [
+        { label: '材质', value: '黄铜 + 防氧化涂层' },
+        { label: '尺寸', value: '120 × 25 × 0.4mm' },
+        { label: '套装', value: '四枚装 + 流苏坠饰' }
+      ]
+    },
+    {
+      name: '山西风物香薰',
+      tagline: '把山西的风，带回家',
+      img: 'images/product-aroma.png',
+      desc: '三款气味分别捕捉山西不同地域的空气记忆——"平遥雨後"以湿润青砖、旧木与烛火为基调，温暖沉静；"壶口水雾"捕捉水汽、岩矿与河风的矿物感，清冽磅礴；"五台松雪"以松针、冷空气与雪为意象，空灵澄澈。深棕陶瓷瓶身饰以窗框纹样浮雕，藤条扩香。',
+      specs: [
+        { label: '材质', value: '陶瓷瓶身 + 天然精油' },
+        { label: '容量', value: '120ml / 支' },
+        { label: '套装', value: '三支装 + 藤条扩香器' }
+      ]
+    },
+    {
+      name: '推窗式茶礼盒',
+      tagline: '推开即是风景的中式茶礼',
+      img: 'images/product-teabox.png',
+      desc: '礼盒结构模拟推窗动作——推开盒盖如同推开一扇望向山西的窗，内置三款风物茶：老陈醋茶以山西陈醋为灵感创新调配，红枣枸杞茶温润甘甜，黄芪养生茶取自山西道地药材。胡桃木盒体配米灰内衬，盒面印有窗见山西四季主视觉，附赠窗景明信片四枚。',
+      specs: [
+        { label: '材质', value: '胡桃木 + 环保纸板' },
+        { label: '内含', value: '3款茶 × 6包 + 4枚明信片' },
+        { label: '尺寸', value: '240 × 180 × 60mm' }
+      ]
+    }
+  ];
+
+  const brandData = [
+    {
+      name: '展厅海报',
+      en: 'Exhibition Poster',
+      img: 'images/brand-exhibition.png',
+      desc: '现代极简展厅空间，深灰墙面悬挂《窗见山西》系列大幅海报。四季窗景主视觉以统一窗框元素贯穿，形成强烈的系列感与空间叙事。观众步入展厅，如同走进一扇扇望向山西的窗。',
+      tags: ['展厅空间', '大幅海报', '系列陈列', '空间叙事']
+    },
+    {
+      name: '商场灯箱',
+      en: 'Mall Lightbox',
+      img: 'images/brand-lightbox.png',
+      desc: '高端商场通道灯箱，发光效果让四季窗景在公共空间中呈现独特视觉张力。深色背景配合内发光灯箱结构，使得窗景画面在商业空间中自然成为视觉焦点，兼具艺术感与商业传播力。',
+      tags: ['商业空间', '灯箱广告', '公共传播', '视觉焦点']
+    },
+    {
+      name: '文创陈列',
+      en: 'Cultural Display',
+      img: 'images/brand-display.png',
+      desc: '木质展台上系列文创产品精心陈列——冰箱贴、书签、香薰、茶礼盒以窗景元素统一贯穿。展陈设计延续"窗"的意象，陈列架结构模拟窗框造型，产品如同窗中风景被一一呈现。',
+      tags: ['文创展陈', '产品陈列', '生活方式', '窗框意象']
+    },
+    {
+      name: '数字传播',
+      en: 'Digital Campaign',
+      img: 'images/brand-digital.png',
+      ratio: '9/19',
+      fit: 'contain',
+      desc: '移动端社交媒体传播视觉，竖版适配的窗景系列。四季窗景主视觉裁剪为9:16比例，适配小红书、抖音、朋友圈等平台。窗框元素在手机屏幕上形成"掌中小窗"的独特体验，用户滑动屏幕如同推开一扇扇窗。',
+      tags: ['社交媒体', '竖版视觉', '移动端', '掌中小窗']
+    }
+  ];
+
+  const detailOverlay = document.getElementById('detailOverlay');
+  const detailCard = document.getElementById('detailCard');
+  let detailOpen = false;
+
+  function openProductDetail(index) {
+    const p = productData[index];
+    detailCard.innerHTML = `
+      <button class="detail-close" aria-label="Close">&times;</button>
+      <div class="detail-visual" style="aspect-ratio:${p.ratio || '16/10'}">
+        <img src="${p.img}" alt="${p.name}" style="object-fit:${p.fit || 'cover'}">
+      </div>
+      <h3 class="cn-heading detail-name">${p.name}</h3>
+      <p class="cn-body detail-tagline">${p.tagline}</p>
+      <p class="cn-body detail-desc muted-text">${p.desc}</p>
+      <div class="detail-specs">
+        ${p.specs.map(s => `
+          <div class="spec-item">
+            <p class="spec-label en-label">${s.label}</p>
+            <p class="cn-heading spec-value">${s.value}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    detailCard.querySelector('.detail-close').addEventListener('click', closeDetail);
+    detailOverlay.classList.add('active');
+    detailOpen = true;
+  }
+
+  function openBrandDetail(index) {
+    const b = brandData[index];
+    detailCard.innerHTML = `
+      <button class="detail-close" aria-label="Close">&times;</button>
+      <div class="detail-visual" style="aspect-ratio:${b.ratio || '16/10'}">
+        <img src="${b.img}" alt="${b.name}" style="object-fit:${b.fit || 'cover'}">
+      </div>
+      <h3 class="cn-heading detail-name">${b.name} <span class="muted-text" style="font-size:0.7em;font-weight:300">${b.en}</span></h3>
+      <p class="cn-body brand-scene-desc muted-text">${b.desc}</p>
+      <div class="brand-tags">
+        ${b.tags.map(t => `<span>${t}</span>`).join('')}
+      </div>
+    `;
+    detailCard.querySelector('.detail-close').addEventListener('click', closeDetail);
+    detailOverlay.classList.add('active');
+    detailOpen = true;
+  }
+
+  function closeDetail() {
+    detailOverlay.classList.remove('active');
+    detailOpen = false;
+  }
+
+  // Click handlers for product cards
+  document.querySelectorAll('[data-product]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openProductDetail(parseInt(card.dataset.product));
+    });
+  });
+
+  // Click handlers for brand cards
+  document.querySelectorAll('[data-brand]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openBrandDetail(parseInt(card.dataset.brand));
+    });
+  });
+
+  // Close overlay on backdrop click
+  detailOverlay.addEventListener('click', (e) => {
+    if (e.target === detailOverlay) closeDetail();
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && detailOpen) {
+      closeDetail();
+    }
+  });
+
+  console.log('%c窗见山西 %cWindow of Shanxi %c— 共12页，使用 ← → 键或滚轮浏览，点击文创/场景卡片查看详情',
+    'color:#b8935a;font-size:1.2em','color:#a09888','color:#6e6658');
+})();
+</script>
+
+</body>
+</html>
